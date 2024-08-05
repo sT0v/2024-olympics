@@ -1,0 +1,23 @@
+// Dependency Graph
+digraph {
+	graph [compound=true concentrate=true rankdir=LR ranksep=0.4]
+	all_country_endpoint_slugs [label=<<b>all_country_endpoint_slugs</b><br /><br /><i>list</i>> fillcolor="#b4d8e4" fontname=Helvetica margin=0.15 shape=rectangle style="rounded,filled"]
+	sitemap_urls [label=<<b>sitemap_urls</b><br /><br /><i>list</i>> fillcolor="#b4d8e4" fontname=Helvetica margin=0.15 shape=rectangle style="rounded,filled"]
+	generated_country_athlete_url [label=<<b>generated_country_athlete_url</b><br /><br /><i>Parallelizable</i>> color="#56E39F" fillcolor="#b4d8e4" fontname=Helvetica margin=0.15 peripheries=2 shape=rectangle style="rounded,filled"]
+	scraped_country_athlete_count [label=<<b>scraped_country_athlete_count</b><br /><br /><i>DataFrame</i>> fillcolor="#b4d8e4" fontname=Helvetica margin=0.15 shape=rectangle style="rounded,filled"]
+	all_country_athlete_counts [label=<<b>all_country_athlete_counts</b><br /><br /><i>DataFrame</i>> color="#EA5556" fillcolor="#FFC857" fontname=Helvetica margin=0.15 peripheries=2 shape=rectangle style="rounded,filled"]
+	sitemap_urls -> all_country_endpoint_slugs
+	_sitemap_urls_inputs [label=<<table border="0"><tr><td>url</td><td>str</td></tr></table>> fontname=Helvetica margin=0.15 shape=rectangle style=dashed]
+	_sitemap_urls_inputs -> sitemap_urls
+	all_country_endpoint_slugs -> generated_country_athlete_url
+	generated_country_athlete_url -> scraped_country_athlete_count [arrowhead=crow arrowtail=none dir=both]
+	scraped_country_athlete_count -> all_country_athlete_counts [arrowtail=crow dir=both]
+	subgraph cluster__legend {
+		graph [fontname=helvetica label=Legend rank=same]
+		input [fontname=Helvetica margin=0.15 shape=rectangle style=dashed]
+		function [fillcolor="#b4d8e4" fontname=Helvetica margin=0.15 shape=rectangle style="rounded,filled"]
+		output [fillcolor="#FFC857" fontname=Helvetica margin=0.15 shape=rectangle style="rounded,filled"]
+		expand [color="#56E39F" fillcolor="#b4d8e4" fontname=Helvetica margin=0.15 peripheries=2 shape=rectangle style="rounded,filled"]
+		collect [color="#EA5556" fillcolor="#b4d8e4" fontname=Helvetica margin=0.15 peripheries=2 shape=rectangle style="rounded,filled"]
+	}
+}
